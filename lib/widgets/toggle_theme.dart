@@ -13,9 +13,9 @@ class _ToggleState extends State<ToggleTheme> {
   Widget build(BuildContext context) {
     bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    final thumbIconDark = MaterialStateProperty.resolveWith<Icon?>(
-      (Set<MaterialState> states) {
-        if (states.contains(MaterialState.selected)) {
+    final thumbIconDark = WidgetStateProperty.resolveWith<Icon?>(
+      (Set<WidgetState> states) {
+        if (states.contains(WidgetState.selected)) {
           return const Icon(
             Icons.brightness_5,
             color: Colors.white,

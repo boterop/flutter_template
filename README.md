@@ -5,8 +5,9 @@ A new Flutter project.
 ## After template setup
 
 - Run `python3 setup.py` to rename the project
-- Run `dart pub get` to install dependencies
-- Run `dart pub run flutter_native_splash:create` to generate splash screen
+- Run `flutter upgrade` to upgrade flutter version
+- Run `flutter update-packages` to update dependencies
+- Run `flutter run` to run the app or `flutter emulators` to run on emulator
 
 ## Getting Started
 

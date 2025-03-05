@@ -19,8 +19,8 @@ class _SignInState extends State<SignIn> {
     super.initState();
     APIService()
         .health()
-        .then((response) => {if (!response) Navigator.pop(context)})
-        .catchError((error) => {Navigator.pop(context)});
+        .then((response) => {if (!response && mounted) Navigator.pop(context)})
+        .catchError((error) => {if (mounted) Navigator.pop(context)});
   }
 
   @override
@@ -49,7 +49,7 @@ class _SignInState extends State<SignIn> {
             String id = data["id"];
             String token = data["token"];
             UserService.instance.updateUser(id, token);
-            Navigator.pop(context, true);
+            if (context.mounted) Navigator.pop(context, true);
             break;
         }
       });

@@ -18,8 +18,8 @@ class _SignUpState extends State<SignUp> {
     super.initState();
     APIService()
         .health()
-        .then((response) => {if (!response) Navigator.pop(context)})
-        .catchError((error) => {Navigator.pop(context)});
+        .then((response) => {if (!response && mounted) Navigator.pop(context)})
+        .catchError((error) => {if (mounted) Navigator.pop(context)});
   }
 
   @override
@@ -40,6 +40,7 @@ class _SignUpState extends State<SignUp> {
       String password = passwordController.text;
       APIService().signUp(email: email, password: password).then((response) {
         debugPrint(response.toString());
+        if (!context.mounted) return;
         switch (response) {
           case {"errors": {"email": ["is not valid"]}}:
             error = AppLocalizations.of(context)!.enterValid("email");
