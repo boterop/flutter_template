@@ -1,10 +1,6 @@
-import 'dart:convert';
-
-import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_template/services/api_service.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_template/widgets/camera_screen.dart';
 import 'package:flutter_template/widgets/square_image.dart';
 
 List<String> notifyList = ["hourly", "daily", "weekly", "monthly"];
@@ -20,20 +16,6 @@ class ShowHabit extends StatefulWidget {
 class _ShowHabitState extends State<ShowHabit> {
   String image = "";
 
-  void onPictureTaken(XFile image) async {
-    List<int> imageBytes = await image.readAsBytes();
-    String encodedImage = base64.encode(imageBytes);
-
-    Map result = await APIService()
-        .uploadImage(id: widget.habit["id"], image: encodedImage);
-
-    String imageUrl =
-        result["data"]["done_image"] + "?" + DateTime.now().toString();
-    setState(() {
-      this.image = imageUrl;
-    });
-  }
-
   @override
   void initState() {
     super.initState();
@@ -46,14 +28,6 @@ class _ShowHabitState extends State<ShowHabit> {
   Widget build(BuildContext context) {
     final habit = widget.habit;
     final isAGoodHabit = habit["type"] == "good";
-
-    void onCam() {
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) =>
-            CameraScreen(onPictureTaken: onPictureTaken),
-      );
-    }
 
     Widget head(String text) {
       return Padding(
@@ -105,7 +79,7 @@ class _ShowHabitState extends State<ShowHabit> {
         ],
       ),
       floatingActionButton: ElevatedButton(
-        onPressed: onCam,
+        onPressed: () {},
         child: const Icon(Icons.camera_alt, color: Colors.amber),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,

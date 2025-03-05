@@ -17,11 +17,11 @@ class GeneralTheme {
     required this.brightness,
   });
 
-  MaterialStateProperty<Color?> _switchColors({bool dark = true}) {
+  WidgetStateProperty<Color?> _switchColors({bool dark = true}) {
     final color = dark ? primaryColor : primaryColor[contrast];
 
-    return MaterialStateProperty.resolveWith<Color?>(
-      (Set<MaterialState> states) => color,
+    return WidgetStateProperty.resolveWith<Color?>(
+      (Set<WidgetState> states) => color,
     );
   }
 
@@ -29,9 +29,9 @@ class GeneralTheme {
       FloatingActionButtonThemeData(backgroundColor: primaryColor);
 
   _buttonStyle() => ButtonStyle(
-        foregroundColor: MaterialStateProperty.resolveWith<Color?>(
-          (Set<MaterialState> states) {
-            if (states.contains(MaterialState.disabled)) {
+        foregroundColor: WidgetStateProperty.resolveWith<Color?>(
+          (Set<WidgetState> states) {
+            if (states.contains(WidgetState.disabled)) {
               return Colors.grey;
             }
             return primaryColor;
